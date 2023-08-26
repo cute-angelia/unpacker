@@ -7,8 +7,14 @@ import (
 
 //go:embed password.txt
 var passwords []byte
+var cachePassword []string
 
 func GetPasswords() []string {
-	data := string(passwords)
-	return strings.Split(data, "\n")
+	if len(cachePassword) > 0 {
+		return cachePassword
+	} else {
+		data := string(passwords)
+		cachePassword = strings.Split(data, "\n")
+		return cachePassword
+	}
 }

@@ -4,11 +4,13 @@ import (
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"
-	"path"
 	"unpacker/internal/unpacker"
 )
 
 func main() {
+
+	log.SetFlags(log.Lshortfile | log.Ltime)
+
 	app := &cli.App{
 		Action: func(cCtx *cli.Context) error {
 			fileIn := cCtx.Args().Get(0)
@@ -16,7 +18,7 @@ func main() {
 			if p, err := unpacker.GetUnpacker(fileIn); err != nil {
 				return err
 			} else {
-				return p.Extract(path.Dir(fileIn))
+				return p.Extract()
 			}
 		},
 	}
